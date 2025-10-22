@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: todo-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-api
+  template:
+    metadata:
+      labels:
+        app: todo-api
+    spec:
+      
+      initContainers:
+      - name: run-migrations 
+       
+        image: 
+        imagePullPolicy: Always 
+       
+        command: ["yarn", "sequelize", "db:migrate"] 
+        
+        env:
+          - name: DB_HOST
+            value: "postgres-service"
+          - name: DB_USER
+            value: "admin"
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_PASSWORD
+          - name: DB_NAME
+            value: "tasklist"
+     
+      containers: 
+      - name: api-container
+        image: 
+        imagePullPolicy: Always 
+        ports:
+        - containerPort: 3333 
+        env:
+          
+          - name: DB_HOST
+            value: "postgres-service" 
+          - name: DB_USER
+            value: "admin" 
+          - name: DB_PASS 
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret 
+                key: POSTGRES_PASSWORD 
+          - name: DB_NAME
+            value: "tasklist" 
+
+          
+          - name: APP_SECRET 
+            value: "cG9ydGZvbGlvYWtzdGVzdGU=" 
+          - name: APP_URL 
+            value: "http://localhost:3333" 
