@@ -3,6 +3,7 @@
 [CI - Build and Push API Image](https://github.com/Gravity22222/ToDoList-backend-NodeJS/actions/workflows/ci-pipeline.yml)
 
 [Release Please](https://github.com/Gravity22222/ToDoList-backend-NodeJS/actions/workflows/release-please.yml)
+
  Este projeto demonstra a implantação de uma aplicação web de duas camadas (API RESTful Node.js + Banco de Dados PostgreSQL) em um ambiente de orquestração de contêineres utilizando o Azure Kubernetes Service (AKS). A infraestrutura é provisionada via Terraform e a aplicação é definida e gerenciada através de manifestos declarativos do Kubernetes. O pipeline de CI/CD para a imagem da API é automatizado com GitHub Actions.
 
 ## 🏛️ Arquitetura Kubernetes
